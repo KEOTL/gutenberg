@@ -1,5 +1,5 @@
-from gutenberg.gutenberg import *;
-from gutenberg.test import *;
+from gutenberg.core import *;
+from gutenberg.suite import *;
 
 # @Test
 # def testError():
