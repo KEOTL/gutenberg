@@ -1,5 +1,5 @@
-from gutenberg import *;
-from test import *;
+from gutenberg.gutenberg import *;
+from gutenberg.test import *;
 
 # @Test
 # def testError():
