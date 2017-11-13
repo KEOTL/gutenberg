@@ -1,6 +1,7 @@
 import enum;
 import requests;
 import simplejson;
+import matcher;
 
 class when:
 
@@ -14,15 +15,25 @@ class when:
 
     def expect(self, status, body):
         try:
-            response = doRequest(self.url, self.method, self.body);
+            response = doRequest(self.method, self.url, self.body);
             when.__assertEquals("wrong status", status.value, response.status_code);
             when.__assertEquals("wrong body", body, response.json());
         except requests.exceptions.ConnectionError:
-            print("Could not establish connection");
+            raise AssertionException("Could not establish connection");
         except simplejson.scanner.JSONDecodeError:
-            print("Did not receive JSON value");
+            raise AssertionException("Did not receive JSON value");
 
     def __assertEquals(message, expected, actual):
+        if (matcher.isMatcher(expected)):
+            if (!expected.matches(actual)):
+                exceptionMessage = message +"""
+expected {},
+but received <<<
+{}
+>>>
+""".format(expected.name, actual);
+                raise AssertionException(exceptionMessage);
+
         if (expected != actual):
             exceptionMessage = message + "\n" + "expected <<<\n";
             exceptionMessage += str(expected) + "\n";
@@ -34,8 +45,6 @@ class when:
 
 class AssertionException(Exception):
     pass;
-
-
 
 class Status(enum.Enum):
     ANY = 0;
@@ -65,5 +74,5 @@ __methodFunctions = {
 
 
 
-def doRequest(url, method, body):
+def doRequest(method, url, body):
     return __methodFunctions[method](url, json=body);

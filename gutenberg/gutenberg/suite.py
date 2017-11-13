@@ -17,12 +17,12 @@ def Test(testFunction):
 
 def done():
     if (_failureCount == 0):
-        print("Completed {} tests without errors.".format(_testCount));
+        print("Completed {} tests without errors.\n".format(_testCount));
     else:
-        print("Completed {} tests. There were {} errors.".format(_testCount, _failureCount));
+        print("Completed {} tests. There were {} errors.\n".format(_testCount, _failureCount));
 
 def Case(caseFunction):
-    print("Test case : {}".format(caseFunction.__name__));
+    print("Test case : {}\n".format(caseFunction.__name__));
     global _failureCount;
     global _testCount;
     _failureCount = 0;
