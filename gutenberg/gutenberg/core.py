@@ -1,7 +1,7 @@
 import enum;
 import requests;
 import simplejson;
-import matcher;
+from gutenberg.matcher import *;
 
 class when:
 
@@ -24,8 +24,8 @@ class when:
             raise AssertionException("Did not receive JSON value");
 
     def __assertEquals(message, expected, actual):
-        if (matcher.isMatcher(expected)):
-            if (!expected.matches(actual)):
+        if (isMatcher(expected)):
+            if (not expected.matches(actual)):
                 exceptionMessage = message +"""
 expected {},
 but received <<<

@@ -1,5 +1,5 @@
 from dateutil.parser import parse;
-import util;
+import gutenberg.util;
 
 class matcher:
     def __init__(self, name, matcherFunction):

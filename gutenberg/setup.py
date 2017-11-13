@@ -7,5 +7,5 @@ setup(name='gutenberg-framework',
       author='Kento Lauzon',
       license='GNU GPLv3',
       packages=['gutenberg'],
-      install_requires=['simplejson'],
+      install_requires=['simplejson', 'python-dateutil'],
       zip_safe=False)
