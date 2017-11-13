@@ -15,7 +15,7 @@ from gutenberg.matcher import *;
 @Case
 def MyEndpointTest():
   @Test
-  def givenValidClient_whenGettingClientDetails_thenReturnCorrespondingClientInfo():
+  def getClientInfoTest():
     when(Method.GET, "http://localhost:8080/client",
         {
             "clientId" : 5
