@@ -1,6 +1,8 @@
+import dateutil.parser as parser;
+
 def isDate(string):
     try:
-        parse(string);
+        parser.parse(string);
         return True;
     except ValueError:
         return False;

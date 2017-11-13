@@ -13,17 +13,20 @@ class when:
     def withBody(self, body):
         self.body = body;
 
-    def expect(self, status, body):
+    def expect(self, status, body, andNothingMore=False):
         try:
             response = doRequest(self.method, self.url, self.body);
-            when.__assertEquals("wrong status", status.value, response.status_code);
-            when.__assertEquals("wrong body", body, response.json());
+            when._assertEquals("wrong status", status.value, response.status_code);
+            for key, expectedValue in body.items():
+                when._assertEquals(key, expectedValue, response.json().get(key));
+            if andNothingMore:
+                when._assertEquals("found too many attributes", body.keys(), response.json().keys());
         except requests.exceptions.ConnectionError:
             raise AssertionException("Could not establish connection");
         except simplejson.scanner.JSONDecodeError:
             raise AssertionException("Did not receive JSON value");
 
-    def __assertEquals(message, expected, actual):
+    def _assertEquals(message, expected, actual):
         if (isMatcher(expected)):
             if (not expected.matches(actual)):
                 exceptionMessage = message +"""
@@ -34,7 +37,7 @@ but received <<<
 """.format(expected.name, actual);
                 raise AssertionException(exceptionMessage);
 
-        if (expected != actual):
+        elif (expected != actual):
             exceptionMessage = message + "\n" + "expected <<<\n";
             exceptionMessage += str(expected) + "\n";
             exceptionMessage += ">>>\n\n";
@@ -76,3 +79,5 @@ __methodFunctions = {
 
 def doRequest(method, url, body):
     return __methodFunctions[method](url, json=body);
+
+andNothingMore = True;
