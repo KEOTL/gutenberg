@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='gutenberg-framework',
-      version='0.0.2',
+      version='0.0.3',
       description='Simple end-to-end REST API testing framework',
       url='http://github.com/KEOTL/gutenberg',
       author='Kento Lauzon',

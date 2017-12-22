@@ -36,7 +36,15 @@ but received <<<
 >>>
 """.format(expected.name, actual);
                 raise AssertionException(exceptionMessage);
-
+        elif( type(expected) == dict and type(actual) == dict):
+            for key, expectedValue in expected.items():
+                when._assertEquals(key, expectedValue, actual[key]);
+        elif (type(expected) == list and type(actual) == list):
+            if len(expected) != len(actual):
+                raise AssertionException("lists are different lengths");
+            for i in range(0, len(expected)):
+                when._assertEquals(message, expected[i], actual[i]);
+            
         elif (expected != actual):
             exceptionMessage = message + "\n" + "expected <<<\n";
             exceptionMessage += str(expected) + "\n";
