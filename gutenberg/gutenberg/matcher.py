@@ -9,7 +9,7 @@ class matcher:
         return self.matcherFunction(other);
 
 someObject = matcher("some object", lambda x: x is not None);
-someInt = matcher("some integer", lambda x: isinstance(x, int));
+someInteger = matcher("some integer", lambda x: isinstance(x, int));
 someDate = matcher("some date", lambda x: util.isDate(x));
 someNumber = matcher("some number", lambda x: isinstance(x, (int, float, complex)));
 someString = matcher("some string", lambda x: isinstance(x, str));
