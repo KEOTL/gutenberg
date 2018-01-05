@@ -27,7 +27,7 @@ class when:
             raise AssertionException("Did not receive JSON value");
 
     def _assertEquals(message, expected, actual):
-        if (isMatcher(expected)):
+        if isMatcher(expected):
             if (not expected.matches(actual)):
                 exceptionMessage = message +"""
 expected {},
